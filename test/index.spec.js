@@ -15,34 +15,34 @@ describe('limit module', () => {
       assert.isObject(limiter.options)
     })
     
-    it('check options type', () => {
-			const limiter = new limit()
+    //it('check options type', () => {
+			//const limiter = new limit()
 			
-			Object.each(limiter.options, function(value, opt){
-				//console.log(value);
-				if(opt == 'id'){
-					assert.isString(Function.attempt(value))
-				}
-				else{
-					assert.isNumber(value)
-				}
-			})
+			//Object.each(limiter.options, function(value, opt){
+				////console.log(value);
+				//if(opt == 'id'){
+					//assert.isString(Function.attempt(value))
+				//}
+				//else{
+					//assert.isNumber(value)
+				//}
+			//})
       
-    })
+    //})
     
-    it('should modify options', () => {
-			const options = {
-				limit: 1,
-				interval: 1000,
-				id: function(){ return 'test' }
-			};
+    //it('should modify options', () => {
+			//const options = {
+				//limit: 1,
+				//interval: 1000,
+				//id: function(){ return 'test' }
+			//};
   
-			const limiter = new limit(options)
+			//const limiter = new limit(options)
 			
-      Object.each(limiter.options, function(value, opt){
-				assert.equal(value, options[opt])
-			})
-    })
+      //Object.each(limiter.options, function(value, opt){
+				//assert.equal(value, options[opt])
+			//})
+    //})
     
     it('should modify id option with another function', () => {
 			const req = { user: 'test' }

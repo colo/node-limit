@@ -15,25 +15,45 @@ var Memory = new Class({
 	initialize: function(options){
 		this.setOptions(options);//override default options
   },
-  get: function(id){
-		return this.store.id || false;
+  get: function(key, callback){
+		callback(null, this.store[key])
 	},
-	set: function(id, value){
-		this.store.id = value;
-		return true;
-	}
+	set: function(key, value, callback){
+		this.store[key] = value;
+		
+		if(callback)
+			callback(null, value, key)
+	},
+	delete: function(key, callback){
+		const value = this.store[key]
+		delete this.store[key];
+		
+		if(callback)
+			callback(null, value, key)
+	},
+	clear: function(callback){
+		this.store = {};
+		if(callback)
+			callback(null)
+	},
+	each: function(callback){
+		Object.each(this.store, function(value, key){
+			callback(value, key)
+		}.bind(this))
+	},
+	
 });
 
 module.exports = new Class({
   Implements: [Options, Events],
   
 	err: null,
-	id: uuidv4(),
 	
 	options: {
 		store: new Memory(),
 		limit: 0, //how many are allowed over "interval" space of time
 		interval: 0, // limit/interval = rate (milliseconds)
+		id: uuidv4(),
 		//id: function(){
 			//return ''
 		//},
@@ -53,9 +73,9 @@ module.exports = new Class({
 		
 		this.setOptions(options);//override default options
   },
-  limit: function(callback){
+  limit: function(callback, key){
 		//const err = null;
-		callback.attempt(this.err); 
+		callback(this.err); 
 	}
 
 	
