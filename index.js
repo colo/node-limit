@@ -47,6 +47,8 @@ var Memory = new Class({
 module.exports = new Class({
   Implements: [Options, Events],
   
+  ON_ERROR: 'onError',
+  
 	err: null,
 	
 	options: {
