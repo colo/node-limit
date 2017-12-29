@@ -8,6 +8,7 @@ module.exports = new Class({
   
 	options: {
 		//https://www.fullcontact.com/developer/docs/rate-limits/
+		//https://stackoverflow.com/questions/16022624/examples-of-http-api-rate-limiting-http-response-headers
 		headers: {
 			'X-Rate-Limit-Limit': 0,
 			'X-Rate-Limit-Remaining': 0,
