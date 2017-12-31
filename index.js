@@ -49,7 +49,8 @@ module.exports = new Class({
   
   ON_ERROR: 'onError',
   
-	err: null,
+	message: 'Limit reach',
+	error: false,
 	
 	options: {
 		store: new Memory(),
@@ -77,7 +78,12 @@ module.exports = new Class({
   },
   limit: function(callback, key){
 		//const err = null;
-		callback(this.err); 
+		if(this.error == true){
+			callback(this.message); 
+		}
+		else{
+			callback();
+		}
 	}
 
 	

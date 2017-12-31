@@ -6,7 +6,7 @@ const limit = require('./index')
 module.exports = new Class({
   Extends: limit,
   
-	
+	message: 'Rate limit reach',
 	
 	limit: function(callback, key){
 		var id = this.options.id
@@ -36,7 +36,7 @@ module.exports = new Class({
 				data.index++
 				
 				if(data.index > this.options.limit){
-					this.err = true
+					this.error = true
 				}
 				
 				

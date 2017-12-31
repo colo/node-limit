@@ -6,6 +6,8 @@ const limit = require('../rate')
 module.exports = new Class({
   Extends: limit,
   
+  message: 'Rate limit reach',
+  
 	options: {
 		//https://www.fullcontact.com/developer/docs/rate-limits/
 		//https://stackoverflow.com/questions/16022624/examples-of-http-api-rate-limiting-http-response-headers
@@ -21,8 +23,9 @@ module.exports = new Class({
 	limit: function(req, res, next, key){
 		this.parent(next, key);
 		
-		if(this.err)
+		if(this.error == true){
 			this.response(res)
+		}
 	},
 	initialize: function(options){
 		//this.addEvent(this.ON_ERROR, this.response);
@@ -35,7 +38,9 @@ module.exports = new Class({
   },
   user: function(){
 		return function (req, res, next) {
-			this.limit(req, res, next, req.user)
+			//console.log('---user---')
+			//console.log(req.user.username)
+			this.limit(req, res, next, req.user.username)
 		}.bind(this);
   },
   response: function (res){
@@ -46,6 +51,7 @@ module.exports = new Class({
 		}.bind(this));
 		
 		res.status(this.options.status)
+		//res.json({ error: this.message });
 	}
 	
 });
