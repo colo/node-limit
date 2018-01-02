@@ -49,10 +49,10 @@ module.exports = new Class({
   
   ON_ERROR: 'onError',
   
-	message: 'Limit reach',
 	error: false,
 	
 	options: {
+		message: 'Rate limit',
 		store: new Memory(),
 		limit: 0, //how many are allowed over "interval" space of time
 		interval: 0, // limit/interval = rate (milliseconds)
@@ -79,11 +79,12 @@ module.exports = new Class({
   limit: function(callback, key){
 		//const err = null;
 		if(this.error == true){
-			callback(this.message); 
+			throw new Error(this.options.message)
+			//callback(this.message); 
 		}
-		else{
+		//else{
 			callback();
-		}
+		//}
 	}
 
 	

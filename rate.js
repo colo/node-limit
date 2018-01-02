@@ -6,7 +6,9 @@ const limit = require('./index')
 module.exports = new Class({
   Extends: limit,
   
-	message: 'Rate limit reach',
+  options: {
+		message: 'Rate limit exceeded',
+	},
 	
 	limit: function(callback, key){
 		var id = this.options.id
@@ -16,7 +18,7 @@ module.exports = new Class({
 		this.options.store.get(id, function(err, data){
 			const clean_data = { index: 0, end: Date.now() + this.options.interval }
 			data = data || clean_data
-			this.err = err
+			//this.error = err
 			
 			console.log('---last_run---');
 			console.log(id);
@@ -28,6 +30,7 @@ module.exports = new Class({
 			
 			if(data.end < Date.now()){//limit period ended, reset
 				console.log('---RESETING----')
+				this.error = false;
 				//this.options.store.delete(id)
 				clean_data.index++
 				this.options.store.set(id,clean_data,this.parent(callback))
@@ -38,7 +41,9 @@ module.exports = new Class({
 				if(data.index > this.options.limit){
 					this.error = true
 				}
-				
+				else{
+					this.error = false;
+				}
 				
 				this.options.store.set(id,data,this.parent(callback))
 				
@@ -60,5 +65,7 @@ module.exports = new Class({
 		
 		
 	},
-	
+	initialize: function(options){
+		this.setOptions(options);//override default options
+  },
 });
