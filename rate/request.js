@@ -65,9 +65,10 @@ module.exports = new Class({
 		/**
 		 * you may set a function to run
 		 * @default null (will call 'next')
+		 * ex: response: function(e, req, res, next){ res.json({error: e.message}) }
 		 * */
-		//response: null,
-		response: function(e, req, res, next){ res.json({error: e.message})}
+		response: null,
+		
 	},
 	
 	limit: function(req, res, next, key){
